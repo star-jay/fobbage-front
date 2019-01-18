@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+# scripts/update
+export VUE_APP_VERSION=$(./get_version.sh)
+
+echo "Running $VUE_APP_VERSION ..."
+
+npm run serve

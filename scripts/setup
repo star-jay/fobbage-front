@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -e
+
+scripts/bootstrap
+
+echo "==> Setting up git hooks"
+git config core.hooksPath .git-hooks
+
+echo "==> App is now ready to go!"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -e
+
+./scripts/test
+
+# Magical git things!
+. git-sh-setup
+
+require_clean_work_tree push "Commit or stash your stuff and try again"

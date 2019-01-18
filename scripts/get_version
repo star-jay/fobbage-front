@@ -1,0 +1,12 @@
+#!/bin/sh
+
+REV=$(git rev-parse --abbrev-ref HEAD)
+
+if [[ $REV == heads/release-* ]] || [[ $REV == heads/rc-* ]] || [[ $REV == heads/hotfix-* ]] ;
+then
+  VER=$(echo $REV | cut -d'-' -f 2)
+else
+  VER=$(git rev-parse --short HEAD)
+fi
+
+echo $VER
