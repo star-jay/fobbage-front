@@ -1,25 +1,30 @@
 <template>
   <div class="hello">
-    <h1>
-      {{ activeQuiz().title }}
+    <div v-if="activeQuiz">
+      <Bluff v-if="questionStatus == 1" />
+      <Guess v-if="questionStatus == 2" />
+    <h1 v-else>
+      {{ activeQuiz.title }}
     </h1>
+    </div>
+    <div v-else>
+      <h2>Select a quiz to play first!</h2>
+    </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
+import Bluff from '@/components/quizes/Bluff.vue';
+import Guess from '@/components/quizes/Guess.vue';
+
 
 export default {
   name: 'Play',
-  props: ['id'],
+  components: { Bluff, Guess },
   computed: {
-    ...mapState({
-      // active_quiz: state => state.quizes.active_quiz,
-      quizlist: state => state.quizes.quizes,
-    }),
-  },
-  methods: {
-    ...mapGetters(['activeQuiz']),
+  // methods: {
+    ...mapGetters(['activeQuiz', 'questionStatus']),
   },
 };
 </script>
