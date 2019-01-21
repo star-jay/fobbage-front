@@ -6,6 +6,7 @@ export default {
   state: {
     loading: false,
     quizes: [],
+    active_quiz : null,
     error: '',
   },
   mutations,

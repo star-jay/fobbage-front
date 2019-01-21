@@ -15,3 +15,6 @@ export const QUIZES_REQUEST = 'QUIZES_REQUEST';
 export const QUIZES_SUCCESS = 'QUIZES_SUCCESS';
 // Problem loading QUIZES
 export const QUIZES_ERROR = 'QUIZES_ERROR';
+
+export const QUIZES_JOIN = 'QUIZES_JOIN';
+

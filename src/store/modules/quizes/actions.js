@@ -6,7 +6,11 @@ import {
   QUIZES_REQUEST,
   QUIZES_SUCCESS,
   QUIZES_ERROR,
+  QUIZES_JOIN,
 } from '@/store/mutation-types';
+
+import router from '@/main.js'
+
 
 export default {
   getQuizList: ({ commit }) => {
@@ -24,4 +28,8 @@ export default {
         });
     });
   },
+  joinQuiz: ({ commit}, { id }) => {
+    commit(QUIZES_JOIN, { id });
+    router.push('play');
+  }
 };

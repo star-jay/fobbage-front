@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
 import Home from './views/Home.vue';
-import Quiz from '@/components/quizes/Quiz.vue';
+import Play from '@/components/quizes/Play.vue';
 
 
 Vue.use(Router);
@@ -16,7 +16,6 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
-  console.log(store.state.auth.token);
   if (store.getters.isAuthenticated) {
     next();
     return;
@@ -50,9 +49,9 @@ export default new Router({
     },
     // quiz detail page
     {
-      path: '/play/:id',
-      name: 'quiz',
-      component: Quiz,
+      path: '/play',
+      name: 'play',
+      component: Play,
       beforeEnter: ifAuthenticated,
       meta: {
         title: 'Fobbage - Play',

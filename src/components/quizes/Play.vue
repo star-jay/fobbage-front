@@ -1,19 +1,25 @@
 <template>
   <div class="hello">
-    QUIZ {{ id }}
+    <h1>
+      {{ activeQuiz().title }}
+    </h1>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations, mapGetters } from 'vuex';
 
 export default {
-  name: 'Quiz',
+  name: 'Play',
   props: ['id'],
   computed: {
     ...mapState({
+      // active_quiz: state => state.quizes.active_quiz,
       quizlist: state => state.quizes.quizes,
-    })
+    }),
+  },
+  methods: {
+    ...mapGetters(['activeQuiz']),
   },
 };
 </script>

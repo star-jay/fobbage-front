@@ -2,12 +2,13 @@
   <div class="hello">
     <ul>
       <li v-for="quiz in quizlist" :key="quiz.name">
-        <router-link
-          :to="{name: 'quiz', params: { id: quiz.id } }"
-        >
           {{ quiz.title }}
-        </router-link>
 
+        <router-link
+          :to="{name: 'play'}"
+        >
+        <button @click="joinQuiz(quiz.id)">Join!</button>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -15,18 +16,19 @@
 
 <script>
 import { mapState } from 'vuex';
-import Quiz from '@/components/quizes/Quiz.vue';
 
 export default {
   name: 'QuizList',
-  components: {
-    Quiz,
-  },
   computed: {
     ...mapState({
       quizlist: state => state.quizes.quizes,
     })
   },
+  methods: {
+    joinQuiz(id) {
+      this.$store.dispatch('joinQuiz',{ id });
+    }
+  }
 };
 </script>
 

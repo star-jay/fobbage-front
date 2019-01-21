@@ -14,4 +14,7 @@ export default {
     state.loading = false;
     state.error = 'There was a problem!';
   },
+  [types.QUIZES_JOIN]: (state, { id }) => {
+    state.active_quiz = id;
+  },
 };
