@@ -7,6 +7,7 @@ import getters from './getters';
 const getUser = () => {
   const token = localStorage.getItem('fobbage-user') || null;
   let user = null;
+  console.log('getuser' + token);
   if (token) {
     user = jwtDecode(token);
   }

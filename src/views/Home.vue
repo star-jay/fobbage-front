@@ -1,18 +1,22 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <QuizList/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import QuizList from '@/components/quizes/QuizList.vue';
 
 export default {
   name: 'home',
   components: {
-    HelloWorld,
+    QuizList,
+  },
+  created() {
+    this.$store.dispatch('getQuizList');
+      // .catch(error => this.$toasted.global.error({ error }));
   },
 };
 </script>

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
 import Home from './views/Home.vue';
+import Quiz from '@/components/quizes/Quiz.vue';
 
 
 Vue.use(Router);
@@ -45,6 +46,16 @@ export default new Router({
       beforeEnter: ifAuthenticated,
       meta: {
         title: 'Fobbage - Home',
+      },
+    },
+    // quiz detail page
+    {
+      path: '/play/:id',
+      name: 'quiz',
+      component: Quiz,
+      beforeEnter: ifAuthenticated,
+      meta: {
+        title: 'Fobbage - Play',
       },
     },
   ],

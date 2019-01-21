@@ -28,7 +28,7 @@ instance.interceptors.request.use((config) => {
       }
     }
     if (store.getters.refreshRequired(moment())) {
-      store.dispatch('fobbage-refreshToken');
+      store.dispatch('refreshToken');
     }
   }
   return config;

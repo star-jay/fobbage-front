@@ -22,6 +22,6 @@ export default {
     state.status = 'success';
     state.token = token;
     state.user = user;
-    state.nextRefresh = moment().add(15, 'minutes');
+    state.nextRefresh = moment().add(1500, 'minutes');
   },
 };

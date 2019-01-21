@@ -1,6 +1,6 @@
 import axios from '@/utils/axiosClient';
 
-const tokenKey = 'user-token';
+const tokenKey = 'fobbage-user';
 
 export default {
   login: credentials => new Promise((resolve, reject) => {

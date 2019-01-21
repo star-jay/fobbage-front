@@ -19,7 +19,6 @@ export default {
           const { token } = response.data;
           const authUser = jwtDecode(token);
           commit(AUTH_SUCCESS, { token, user: authUser });
-          dispatch('applySettings');
           resolve(response);
         })
         .catch((error) => {
