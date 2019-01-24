@@ -16,5 +16,17 @@ export default {
   },
   [types.QUIZES_JOIN]: (state, { id }) => {
     state.active_quiz = id;
+    state.bluff = ''
+  },
+  [types.BLUFF_REQUEST]: (state) => {
+    state.loading = true;
+  },
+  [types.BLUFF_SUCCESS]: (state, bluff ) => {
+    state.bluff = bluff;
+    state.loading = false;
+  },
+  [types.BLUFF_ERROR]: (state) => {
+    state.loading = false;
+    state.error = 'There was a problem!';
   },
 };

@@ -8,6 +8,7 @@ export default {
     quizes: [],
     active_quiz : null,
     error: '',
+    bluff: '',
   },
   mutations,
   getters,

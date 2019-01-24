@@ -18,3 +18,6 @@ export const QUIZES_ERROR = 'QUIZES_ERROR';
 
 export const QUIZES_JOIN = 'QUIZES_JOIN';
 
+export const BLUFF_REQUEST = 'BLUFF_REQUEST';
+export const BLUFF_SUCCESS = 'BLUFF_SUCCESS';
+export const BLUFF_ERROR = 'BLUFF_ERROR';

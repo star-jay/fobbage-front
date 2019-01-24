@@ -4,14 +4,12 @@
       {{ activeQuiz.active_question.text }}
     </h1>
     <el-form>
-      <el-radio-button
-        v-for=" answer in activeQuiz.active_question.anwsers"
-        :key="answer.id"
-      >
-        {{ answer.order }}{{ answer.text }}
-      </el-radio-button>
-      <el-button>Guess!</el-button>
-
+    <div v-for="answer in activeQuiz.active_question.answers" :key="answer.id">
+      <span>{{ answer.text }}</span>
+      <el-button>
+        Vote!
+      </el-button>
+    </div>
     </el-form>
   </div>
 </template>

@@ -3,22 +3,28 @@
     <h1>
       {{ activeQuiz.active_question.text }}
     </h1>
-    <el-form>
-      <el-input/>
-      <el-button>Bluff!</el-button>
+    <input value="" v-model="my_bluff">
+    <button v-on:click="bluff()">Bluff</button>
 
-    </el-form>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   name: 'Bluff',
+  data: () => ({
+    my_bluff: undefined,
+  }),
   computed: {
     ...mapGetters(['activeQuiz']),
   },
+  methods: {
+    bluff() {
+      this.$store.dispatch('bluff', { id: this.$store.getters.activeQuiz.active_question.id, bluff: this.my_bluff });
+    },
+  }
 };
 </script>
 
