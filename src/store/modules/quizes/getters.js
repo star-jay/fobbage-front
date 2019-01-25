@@ -7,6 +7,6 @@ export default {
         {
           return getters.activeQuiz.active_question.status
         }
-        return 0;
+        return -1;
       }
 }

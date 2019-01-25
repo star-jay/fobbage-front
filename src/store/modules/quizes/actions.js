@@ -1,6 +1,7 @@
 import {
   quizesAPI,
   bluffsAPI,
+  guessAPI,
 } from '@/services/api';
 
 import {
@@ -9,6 +10,9 @@ import {
   QUIZES_ERROR,
   QUIZES_JOIN,
   BLUFF_SUCCESS,
+  BLUFF_ERROR,
+  GUESS_ERROR,
+  GUESS_SUCCESS
 } from '@/store/mutation-types';
 
 import router from '@/main.js'
@@ -44,7 +48,22 @@ export default {
           resolve(response);
         })
         .catch((error) => {
-          // commit(QUIZES_ERROR);
+          commit(BLUFF_ERROR);
+          reject(error);
+        });
+    });
+  },
+  guess: ({ commit }, { id, guess }) => {
+    console.log(guess);
+    return new Promise((resolve, reject) => {
+      guessAPI.post({ question: id, answer: guess })
+        .then((response) => {
+          const quizes = response.data;
+          commit(GUESS_SUCCESS, guess);
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(GUESS_ERROR);
           reject(error);
         });
     });

@@ -5,7 +5,6 @@
     </h1>
     <input value="" v-model="my_bluff">
     <button v-on:click="bluff()">Bluff</button>
-
   </div>
 </template>
 

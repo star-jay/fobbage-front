@@ -2,19 +2,31 @@
   <div class="hello">
     <div v-if="activeQuiz">
       <Bluff v-if="questionStatus == 1" />
-      <Guess v-if="questionStatus == 2" />
-    <h1 v-else>
-      {{ activeQuiz.title }}
-    </h1>
+      <Guess v-else-if="questionStatus == 2" />
+      <div v-else-if="questionStatus == -1">
+        <h1>
+          {{ activeQuiz.title }}
+        </h1>
+        <span>
+          no active question
+        </span>
+      </div>
+      <div v-else>
+        nothing to do for now...
+      </div>
     </div>
+
     <div v-else>
       <h2>Select a quiz to play first!</h2>
     </div>
+     <button v-on:click="getQuizList()">
+        Refresh
+      </button>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import Bluff from '@/components/quizes/Bluff.vue';
 import Guess from '@/components/quizes/Guess.vue';
 
@@ -23,9 +35,11 @@ export default {
   name: 'Play',
   components: { Bluff, Guess },
   computed: {
-  // methods: {
     ...mapGetters(['activeQuiz', 'questionStatus']),
   },
+  methods: {
+    ...mapActions(['getQuizList']),
+  }
 };
 </script>
 

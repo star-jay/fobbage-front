@@ -3,14 +3,14 @@
     <h1>
       {{ activeQuiz.active_question.text }}
     </h1>
-    <el-form>
+    <!-- <el-form> -->
     <div v-for="answer in activeQuiz.active_question.answers" :key="answer.id">
       <span>{{ answer.text }}</span>
-      <el-button>
-        Vote!
-      </el-button>
+        <button v-on:click="guess(answer.id)">
+          Vote!
+        </button>
     </div>
-    </el-form>
+    <!-- </el-form> -->
   </div>
 </template>
 
@@ -22,6 +22,16 @@ export default {
   computed: {
     ...mapGetters(['activeQuiz']),
   },
+  methods: {
+    guess(number) {
+      this.$store.dispatch(
+        'guess',
+        {
+          id: this.$store.getters.activeQuiz.active_question.id,
+          guess: number
+        });
+    },
+  }
 };
 </script>
 

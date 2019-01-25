@@ -12,6 +12,7 @@ export default {
   },
   [types.AUTH_ERROR]: (state) => {
     state.status = 'error';
+    state.token = undefined;
   },
   [types.AUTH_LOGOUT]: (state) => {
     state.status = '';

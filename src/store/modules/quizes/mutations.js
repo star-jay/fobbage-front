@@ -29,4 +29,15 @@ export default {
     state.loading = false;
     state.error = 'There was a problem!';
   },
+  [types.GUESS_REQUEST]: (state) => {
+    state.loading = true;
+  },
+  [types.GUESS_SUCCESS]: (state, guess ) => {
+    state.guess = guess;
+    state.loading = false;
+  },
+  [types.GUESS_ERROR]: (state) => {
+    state.loading = false;
+    state.error = 'There was a problem!';
+  },
 };

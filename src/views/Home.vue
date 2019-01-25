@@ -15,6 +15,7 @@ export default {
     QuizList,
   },
   created() {
+    // console.log('hello');
     this.$store.dispatch('getQuizList');
       // .catch(error => this.$toasted.global.error({ error }));
   },
