@@ -5,9 +5,9 @@
     </h1>
     <!-- <el-form> -->
     <div v-for="answer in activeQuiz.active_question.answers" :key="answer.id">
-      <span>{{ answer.text }}</span>
+      <!-- <span>{{ answer.text }}</span> -->
         <button class="button" v-on:click="guess(answer.id)">
-          Vote!
+          {{ answer.order }}
         </button>
     </div>
     <!-- </el-form> -->
