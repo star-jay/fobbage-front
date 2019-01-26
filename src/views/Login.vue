@@ -8,7 +8,7 @@
       <el-form-item label="Password">
         <el-input v-model="form.password" type=password></el-input>
       </el-form-item>
-      <el-button class="u-1/1" type="primary"
+      <el-button class="button" type="primary"
       :disabled="!formIsComplete" :loading="loading" native-type="submit">
         {{ loading ? 'Loading...' : 'Login' }}
       </el-button>

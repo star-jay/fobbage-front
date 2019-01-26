@@ -1,14 +1,19 @@
 <template>
-  <div class="hello">
+  <div class="content">
     <ul>
       <li v-for="quiz in quizlist" :key="quiz.name">
-          {{ quiz.title }}
-
-        <router-link
-          :to="{name: 'play'}"
-        >
-        <button @click="joinQuiz(quiz.id)">Join!</button>
-        </router-link>
+        <div class="level">
+          <div class="level-item-left">
+            {{ quiz.title }}
+          </div>
+          <div class="level-item-right">
+          <router-link
+            :to="{name: 'play'}"
+          >
+          <button  class="button" @click="joinQuiz(quiz.id)">Join!</button>
+          </router-link>
+          </div>
+        </div>
       </li>
     </ul>
   </div>

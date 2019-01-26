@@ -4,7 +4,7 @@
       {{ activeQuiz.active_question.text }}
     </h1>
     <input value="" v-model="my_bluff">
-    <button v-on:click="bluff()">Bluff</button>
+    <button class="button" v-on:click="bluff()">Bluff</button>
   </div>
 </template>
 

@@ -1,12 +1,12 @@
 <template>
   <div class="hello">
-    <h1>
+    <h1 class="subtitle">
       {{ activeQuiz.active_question.text }}
     </h1>
     <!-- <el-form> -->
     <div v-for="answer in activeQuiz.active_question.answers" :key="answer.id">
       <span>{{ answer.text }}</span>
-        <button v-on:click="guess(answer.id)">
+        <button class="button" v-on:click="guess(answer.id)">
           Vote!
         </button>
     </div>
