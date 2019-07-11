@@ -62,7 +62,8 @@ export default {
   methods: {
     ...mapActions(['getQuizList']),
     connectToWebSocket() {
-      const websocket = new WebSocket(this.activeQuiz.websocket);
+      var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+      const websocket = new WebSocket(ws_scheme+'://' + this.activeQuiz.websocket);
       websocket.onopen = this.onOpen;
       websocket.onclose = this.onClose;
       websocket.onmessage = this.onMessage;
