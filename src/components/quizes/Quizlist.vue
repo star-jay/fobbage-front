@@ -18,12 +18,12 @@ export default {
   computed: {
     ...mapState({
       quizlist: state => state.quizes.quizes,
-    })
+    }),
   },
   methods: {
     joinQuiz(id) {
-      this.$store.dispatch('joinQuiz',{ id });
-    }
+      this.$store.dispatch('joinQuiz', { id });
+    },
   },
   created() {
     this.$store.dispatch('getQuizList');

@@ -48,7 +48,7 @@ export default {
           if (error.response) {
             this.errors = error.response.data;
           } else {
-            this.errors= { error };
+            this.errors = { error };
           }
         });
     },

@@ -39,45 +39,48 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import Bluff from '@/components/quizes/Bluff.vue';
-import Guess from '@/components/quizes/Guess.vue';
+// import Bluff from '@/components/quizes/Bluff.vue';
+// import Guess from '@/components/quizes/Guess.vue';
 import Message from '@/components/quizes/Message.vue';
 import Quizlist from '@/components/quizes/Quizlist.vue';
 
 
 export default {
   name: 'Play',
-  components: { Quizlist, Bluff, Guess, Message },
-  data(){
+  components: {
+    // Bluff, Guess
+    Quizlist, Message,
+  },
+  data() {
     return {
       messages: [],
-    }
+    };
   },
   computed: {
     ...mapGetters(['activeQuiz', 'questionStatus']),
   },
   methods: {
     ...mapActions(['getQuizList']),
-    connectToWebSocket () {
-      const websocket = new WebSocket(this.activeQuiz.websocket)
-      websocket.onopen = this.onOpen
-      websocket.onclose = this.onClose
-      websocket.onmessage = this.onMessage
-      websocket.onerror = this.onError
+    connectToWebSocket() {
+      const websocket = new WebSocket(this.activeQuiz.websocket);
+      websocket.onopen = this.onOpen;
+      websocket.onclose = this.onClose;
+      websocket.onmessage = this.onMessage;
+      websocket.onerror = this.onError;
     },
-    onOpen (event) {
-      console.log('Connection opened.', event.data)
+    onOpen(event) {
+      console.log('Connection opened.', event.data);
     },
-    onClose (event) {
-      console.log('Connection closed.', event.data)
+    onClose(event) {
+      console.log('Connection closed.', event.data);
     },
-    onMessage (event) {
-      const message = JSON.parse(event.data)
-      this.messages.push(message)
+    onMessage(event) {
+      const message = JSON.parse(event.data);
+      this.messages.push(message);
     },
-    onError (event) {
-      console.log('An error occured:', event.data)
-    }
+    onError(event) {
+      console.log('An error occured:', event.data);
+    },
   },
   watch: {
     activeQuiz: 'connectToWebSocket',

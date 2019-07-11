@@ -23,3 +23,7 @@ export const QUIZES_JOIN = 'QUIZES_JOIN';
 export const BLUFF_REQUEST = 'BLUFF_REQUEST';
 export const BLUFF_SUCCESS = 'BLUFF_SUCCESS';
 export const BLUFF_ERROR = 'BLUFF_ERROR';
+
+export const GUESS_REQUEST = 'GUESS_REQUEST';
+export const GUESS_SUCCESS = 'GUESS_SUCCESS';
+export const GUESS_ERROR = 'GUESS_ERROR';
