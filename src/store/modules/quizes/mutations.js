@@ -17,7 +17,6 @@ export default {
   [types.QUIZES_JOIN]: (state, { id }) => {
     state.active_quiz = id;
     state.bluff = '';
-    state.active_quiz.messages = [];
   },
   [types.BLUFF_REQUEST]: (state) => {
     state.loading = true;
@@ -40,8 +39,5 @@ export default {
   [types.GUESS_ERROR]: (state) => {
     state.loading = false;
     state.error = 'There was a problem!';
-  },
-  [types.NEW_MESSAGE]: (state, message) => {
-    state.active_quiz.message.push(message);
   },
 };
