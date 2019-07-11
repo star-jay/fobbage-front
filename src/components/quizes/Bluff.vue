@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Bluff',
@@ -23,7 +23,7 @@ export default {
     bluff() {
       this.$store.dispatch('bluff', { id: this.$store.getters.activeQuiz.active_question.id, bluff: this.my_bluff });
     },
-  }
+  },
 };
 </script>
 

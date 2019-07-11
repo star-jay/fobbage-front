@@ -15,7 +15,7 @@ import {
   GUESS_SUCCESS,
 } from '@/store/mutation-types';
 
-import router from '@/main.js'
+import router from '@/main';
 
 
 export default {

@@ -12,7 +12,7 @@ import {
 import jwtDecode from 'jwt-decode';
 
 export default {
-  login({ dispatch, commit }, credentials) {
+  login({ commit }, credentials) {
     commit(AUTH_REQUEST);
     return new Promise((resolve, reject) => {
       authAPI.login(credentials)
@@ -48,7 +48,7 @@ export default {
         reject(error);
       });
   }),
-  register({ dispatch, commit }, credentials) {
+  register({ commit }, credentials) {
     commit(AUTH_REQUEST);
     return new Promise((resolve, reject) => {
       authAPI.register(credentials)

@@ -28,10 +28,11 @@ export default {
         'guess',
         {
           id: this.$store.getters.activeQuiz.active_question.id,
-          guess: number
-        });
+          guess: number,
+        },
+      );
     },
-  }
+  },
 };
 </script>
 
