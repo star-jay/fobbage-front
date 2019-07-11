@@ -1,16 +1,22 @@
 <template>
-  <div class="Login">
-    <h1> Login </h1>
-    <el-form ref="login-form" @submit.native.prevent="login" :model="form">
-      <el-form-item label="username">
-        <el-input v-model="form.username" type=username></el-input>
+  <div class="Register">
+    <h1> Register </h1>
+    <el-form ref="register-form" @submit.native.prevent="register" :model="form">
+      <el-form-item label="Email">
+        <el-input v-model="form.email" type=email></el-input>
       </el-form-item>
       <el-form-item label="Password">
         <el-input v-model="form.password" type=password></el-input>
       </el-form-item>
+      <el-form-item label="First Name">
+        <el-input v-model="form.first_name"></el-input>
+      </el-form-item>
+      <el-form-item label="Last Name">
+        <el-input v-model="form.last_name"></el-input>
+      </el-form-item>
       <el-button class="button" type="primary"
       :disabled="!formIsComplete" :loading="loading" native-type="submit">
-        {{ loading ? 'Loading...' : 'Login' }}
+        {{ loading ? 'Loading...' : 'Register' }}
       </el-button>
     </el-form>
   </div>
@@ -20,13 +26,15 @@
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'login',
+  name: 'register',
   data() {
     return {
       errors: [],
       form: {
-        username: '',
+        email: '',
         password: '',
+        first_name: '',
+        last_name: '',
       },
     };
   },
@@ -35,13 +43,14 @@ export default {
       loading: 'authLoading',
     }),
     formIsComplete() {
-      return this.form.username && this.form.password;
+      return this.form.email && this.form.password && this.form.first_name;
     },
   },
   methods: {
-    login() {
-      this.$store.dispatch('login', this.form)
+    register() {
+      this.$store.dispatch('register', this.form)
         .then(() => {
+          console.log('registered');
           this.$router.push('/');
         })
         .catch((error) => {

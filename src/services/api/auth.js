@@ -33,4 +33,13 @@ export default {
         reject(err);
       });
   }),
+  register: credentials => new Promise((resolve, reject) => {
+    axios.post('accounts/register', credentials)
+      .then((resp) => {
+        resolve(resp);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  }),
 };

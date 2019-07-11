@@ -10,6 +10,11 @@ export default {
     state.token = token;
     state.user = user;
   },
+  [types.AUTH_REGISTERED]: (state) => {
+    state.status = '';
+    state.token = '';
+    state.user = null;
+  },
   [types.AUTH_ERROR]: (state) => {
     state.status = 'error';
     state.token = undefined;

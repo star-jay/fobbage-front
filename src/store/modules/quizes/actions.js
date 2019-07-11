@@ -12,7 +12,8 @@ import {
   BLUFF_SUCCESS,
   BLUFF_ERROR,
   GUESS_ERROR,
-  GUESS_SUCCESS
+  GUESS_SUCCESS,
+  NEW_MESSAGE,
 } from '@/store/mutation-types';
 
 import router from '@/main.js'
@@ -34,7 +35,7 @@ export default {
         });
     });
   },
-  joinQuiz: ({ commit}, { id }) => {
+  joinQuiz: ({ commit }, { id }) => {
     commit(QUIZES_JOIN, { id });
     router.push('play');
   },
@@ -43,7 +44,6 @@ export default {
     return new Promise((resolve, reject) => {
       bluffsAPI.post({ question: id, text: bluff })
         .then((response) => {
-          const quizes = response.data;
           commit(BLUFF_SUCCESS, bluff);
           resolve(response);
         })
@@ -58,7 +58,6 @@ export default {
     return new Promise((resolve, reject) => {
       guessAPI.post({ question: id, answer: guess })
         .then((response) => {
-          const quizes = response.data;
           commit(GUESS_SUCCESS, guess);
           resolve(response);
         })
@@ -67,5 +66,25 @@ export default {
           reject(error);
         });
     });
+  },
+  connectToWebSocket(socket) {
+    const websocket = new WebSocket(socket);
+    websocket.onopen = this.onOpen;
+    websocket.onclose = this.onClose;
+    websocket.onmessage = this.onMessage;
+    websocket.onerror = this.onError;
+  },
+  onOpen(event) {
+    console.log('Connection opened.', event.data);
+  },
+  onClose(event) {
+    console.log('Connection closed.', event.data);
+  },
+  onMessage(event) {
+    const message = JSON.parse(event.data);
+    commit(GUESS_SUCCESS, message);
+  },
+  onError(event) {
+    console.log('An error occured:', event.data);
   },
 };
