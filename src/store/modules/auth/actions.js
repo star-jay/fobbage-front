@@ -6,6 +6,7 @@ import {
   AUTH_LOGOUT,
   AUTH_ERROR,
   AUTH_REFRESH,
+  AUTH_REGISTERED,
 } from '@/store/mutation-types';
 
 import jwtDecode from 'jwt-decode';
@@ -47,4 +48,19 @@ export default {
         reject(error);
       });
   }),
+  register({ dispatch, commit }, credentials) {
+    commit(AUTH_REQUEST);
+    return new Promise((resolve, reject) => {
+      authAPI.register(credentials)
+        .then((response) => {
+          commit(AUTH_REGISTERED);
+          resolve(response);
+        })
+        .catch((error) => {
+          commit(AUTH_ERROR);
+          authAPI.logout();
+          reject(error);
+        });
+    });
+  },
 };

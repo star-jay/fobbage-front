@@ -16,12 +16,13 @@ export default {
   },
   [types.QUIZES_JOIN]: (state, { id }) => {
     state.active_quiz = id;
-    state.bluff = ''
+    state.bluff = '';
+    state.active_quiz.messages = [];
   },
   [types.BLUFF_REQUEST]: (state) => {
     state.loading = true;
   },
-  [types.BLUFF_SUCCESS]: (state, bluff ) => {
+  [types.BLUFF_SUCCESS]: (state, bluff) => {
     state.bluff = bluff;
     state.loading = false;
   },
@@ -32,12 +33,15 @@ export default {
   [types.GUESS_REQUEST]: (state) => {
     state.loading = true;
   },
-  [types.GUESS_SUCCESS]: (state, guess ) => {
+  [types.GUESS_SUCCESS]: (state, guess) => {
     state.guess = guess;
     state.loading = false;
   },
   [types.GUESS_ERROR]: (state) => {
     state.loading = false;
     state.error = 'There was a problem!';
+  },
+  [types.NEW_MESSAGE]: (state, message) => {
+    state.active_quiz.message.push(message);
   },
 };

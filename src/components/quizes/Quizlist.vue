@@ -1,21 +1,12 @@
 <template>
-  <div class="content">
-    <ul>
-      <li v-for="quiz in quizlist" :key="quiz.name">
-        <div class="level">
-          <div class="level-item-left">
-            {{ quiz.title }}
-          </div>
-          <div class="level-item-right">
-          <router-link
-            :to="{name: 'play'}"
-          >
-          <button  class="button" @click="joinQuiz(quiz.id)">Join!</button>
-          </router-link>
-          </div>
-        </div>
-      </li>
-    </ul>
+  <div class="list">
+    <div class="list-item-left" v-for="quiz in quizlist" :key="quiz.name">
+      <router-link :to="{name: 'play'}">
+        <a class="list-item" @click="joinQuiz(quiz.id)">
+        {{ quiz.title }}
+        </a>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -23,7 +14,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'QuizList',
+  name: 'Quizlist',
   computed: {
     ...mapState({
       quizlist: state => state.quizes.quizes,
@@ -33,7 +24,10 @@ export default {
     joinQuiz(id) {
       this.$store.dispatch('joinQuiz',{ id });
     }
-  }
+  },
+  created() {
+    this.$store.dispatch('getQuizList');
+  },
 };
 </script>
 
@@ -42,7 +36,7 @@ export default {
 h3 {
   margin: 40px 0 0;
 }
-ul {
+ ul {
   list-style-type: none;
   padding: 0;
 }

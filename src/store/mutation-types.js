@@ -8,6 +8,8 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 // After receiving a refreshed token
 export const AUTH_REFRESH = 'AUTH_REFRESH';
+export const AUTH_REGISTERED = 'AUTH_REGISTERED';
+
 
 // Start loading QUIZES
 export const QUIZES_REQUEST = 'QUIZES_REQUEST';

@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
-import Home from './views/Home.vue';
-import Play from '@/components/quizes/Play.vue';
+import Play from '@/views/Play.vue';
 
 
 Vue.use(Router);
@@ -12,7 +11,11 @@ const ifNotAuthenticated = (to, from, next) => {
     next();
     return;
   }
-  next('/');
+  next('/play');
+};
+
+const redirect = (to, from, next) => {
+  next('/play');
 };
 
 const ifAuthenticated = (to, from, next) => {
@@ -27,6 +30,25 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
+    // play
+    {
+      path: '/',
+      name: 'home',
+      beforeEnter: redirect,
+      meta: {
+        title: 'Fobbage - Home',
+      },
+    },
+    // home redirect
+    {
+      path: '/play',
+      name: 'play',
+      component: Play,
+      beforeEnter: ifAuthenticated,
+      meta: {
+        title: 'Fobbage - Play',
+      },
+    },
     // login  pages
     {
       path: '/login',
@@ -37,25 +59,16 @@ export default new Router({
         title: 'Fobbage - Login',
       },
     },
-    // Main  pages
+    // register  pages
     {
-      path: '/',
-      name: 'home',
-      component: Home,
-      beforeEnter: ifAuthenticated,
+      path: '/register',
+      name: 'register',
+      component: () => import(/* webpackChunkName: "login" */ './views/Register.vue'),
+      beforeEnter: ifNotAuthenticated,
       meta: {
-        title: 'Fobbage - Home',
+        title: 'Fobbage - Register',
       },
     },
-    // quiz detail page
-    {
-      path: '/play',
-      name: 'play',
-      component: Play,
-      beforeEnter: ifAuthenticated,
-      meta: {
-        title: 'Fobbage - Play',
-      },
-    },
+
   ],
 });
