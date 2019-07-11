@@ -4,8 +4,6 @@
       <h1>
       {{ activeQuiz.title }}
     </h1>
-      <!-- <div v-if="messages.length > 0"> -->
-
         <ul>
           <li v-for="message in messages" v-bind:key="message.id">
             <Message :message="message"/>

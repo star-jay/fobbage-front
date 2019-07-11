@@ -13,7 +13,6 @@ import {
   BLUFF_ERROR,
   GUESS_ERROR,
   GUESS_SUCCESS,
-  NEW_MESSAGE,
 } from '@/store/mutation-types';
 
 import router from '@/main.js'
@@ -66,25 +65,5 @@ export default {
           reject(error);
         });
     });
-  },
-  connectToWebSocket(socket) {
-    const websocket = new WebSocket(socket);
-    websocket.onopen = this.onOpen;
-    websocket.onclose = this.onClose;
-    websocket.onmessage = this.onMessage;
-    websocket.onerror = this.onError;
-  },
-  onOpen(event) {
-    console.log('Connection opened.', event.data);
-  },
-  onClose(event) {
-    console.log('Connection closed.', event.data);
-  },
-  onMessage(event) {
-    const message = JSON.parse(event.data);
-    commit(GUESS_SUCCESS, message);
-  },
-  onError(event) {
-    console.log('An error occured:', event.data);
   },
 };
