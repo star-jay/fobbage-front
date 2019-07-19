@@ -27,3 +27,12 @@ export const BLUFF_ERROR = 'BLUFF_ERROR';
 export const GUESS_REQUEST = 'GUESS_REQUEST';
 export const GUESS_SUCCESS = 'GUESS_SUCCESS';
 export const GUESS_ERROR = 'GUESS_ERROR';
+
+// Socket
+export const SOCKET_MESSAGE = 'SOCKET_MESSAGE';
+export const SOCKET_ERROR = 'SOCKET_ERROR';
+export const SOCKET_OPEN = 'SOCKET_OPEN';
+export const SOCKET_CLOSE = 'SOCKET_CLOSE';
+export const SOCKET_SET = 'SOCKET_SET';
+
+export const ACTIVE_QUESTION_SUCCES = 'ACTIVE_QUESTION_SUCCES';

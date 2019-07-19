@@ -32,12 +32,16 @@ export default {
   [types.GUESS_REQUEST]: (state) => {
     state.loading = true;
   },
-  [types.GUESS_SUCCESS]: (state, guess) => {
+  [types.GUESS_SUCCESS]: (state, { guess }) => {
     state.guess = guess;
     state.loading = false;
   },
   [types.GUESS_ERROR]: (state) => {
     state.loading = false;
+    state.error = 'There was a problem!';
+  },
+  [types.ACTIVE_QUESTION_SUCCES]: (state, { activeQuestion }) => {
+    state.activeQuestion = activeQuestion;
     state.error = 'There was a problem!';
   },
 };

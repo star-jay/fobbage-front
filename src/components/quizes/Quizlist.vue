@@ -1,9 +1,9 @@
 <template>
   <div class="list">
     <div class="list-item-left" v-for="quiz in quizlist" :key="quiz.name">
-      <router-link :to="{name: 'play'}">
+      <router-link :to="{name: 'play', params: { id: quiz.id }}">
         <a class="list-item" @click="joinQuiz(quiz.id)">
-        {{ quiz.title }}
+          {{ quiz.title }}
         </a>
       </router-link>
     </div>
@@ -12,6 +12,8 @@
 
 <script>
 import { mapState } from 'vuex';
+import router from '@/router';
+
 
 export default {
   name: 'Quizlist',

@@ -1,45 +1,32 @@
 <template>
-  <div class="hero">
+  <section>
     <div v-if="activeQuiz">
-      <h1>
-      {{ activeQuiz.title }}
-    </h1>
+       <h1>
+        Quiz : {{ activeQuiz.title }}
+        </h1>
+      <div v-if="activeQuestion">
+        <h1>
+        Question : {{ activeQuestion.text }}
+        </h1>
         <ul>
           <li v-for="message in messages" v-bind:key="message.id">
             <Message :message="message"/>
           </li>
         </ul>
-
-      <!-- </div> -->
-      <!-- <div v-else> -->
-        <!-- <h2>no new messages</h2>
-      </div> -->
-
-      <!-- <Bluff v-if="questionStatus == 1" />
-      <Guess v-else-if="questionStatus == 2" />
-      <div v-else-if="questionStatus == -1">
-        <h1 class="title">
-          {{ activeQuiz.title }}
-        </h1>
-        <span>
-          no active question
-        </span>
+        <Answer/>
       </div>
-      <div v-else>
-        nothing to do for now...
-      </div> -->
     </div>
     <div v-else>
       <h2>Select a quiz to play first!</h2>
       <Quizlist/>
     </div>
 
-  </div>
+  </section>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
-// import Bluff from '@/components/quizes/Bluff.vue';
+import { mapGetters, mapActions, mapState } from 'vuex';
+import Answer from '@/components/quizes/Answer.vue';
 // import Guess from '@/components/quizes/Guess.vue';
 import Message from '@/components/quizes/Message.vue';
 import Quizlist from '@/components/quizes/Quizlist.vue';
@@ -49,39 +36,30 @@ export default {
   name: 'Play',
   components: {
     // Bluff, Guess
-    Quizlist, Message,
+    Quizlist, Message, Answer,
   },
-  data() {
-    return {
-      messages: [],
-    };
+  props: {
+    id: Number,
+  },
+  created () {
+    if (this.id){
+      this.$store.dispatch('joinQuiz', { id: this.id });
+    }
   },
   computed: {
-    ...mapGetters(['activeQuiz', 'questionStatus']),
+    ...mapGetters(['activeQuiz', 'questionStatus', ]),
+    ...mapState({
+        messages: state => state.quizes.messages,
+        activeQuestion: state => state.quizes.activeQuestion,
+      }),
   },
   methods: {
-    ...mapActions(['getQuizList']),
+    ...mapActions(['getQuizList', 'joinQuiz', ]),
     connectToWebSocket() {
-      var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-      const websocket = new WebSocket(ws_scheme+'://' + this.activeQuiz.websocket);
-      websocket.onopen = this.onOpen;
-      websocket.onclose = this.onClose;
-      websocket.onmessage = this.onMessage;
-      websocket.onerror = this.onError;
-    },
-    onOpen(event) {
-      console.log('Connection opened.', event.data);
-    },
-    onClose(event) {
-      console.log('Connection closed.', event.data);
-    },
-    onMessage(event) {
-      const message = JSON.parse(event.data);
-      this.messages.push(message);
-    },
-    onError(event) {
-      console.log('An error occured:', event.data);
-    },
+      const scheme = window.location.protocol == "https:" ? "wss" : "ws";
+      const uri = this.activeQuiz.websocket;
+      this.$store.dispatch('connectToWebSocket', { scheme, uri });
+    }
   },
   watch: {
     activeQuiz: 'connectToWebSocket',

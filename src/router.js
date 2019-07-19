@@ -41,10 +41,11 @@ export default new Router({
     },
     // home redirect
     {
-      path: '/play',
+      path: '/play/:id(\\d+)?',
       name: 'play',
       component: Play,
       beforeEnter: ifAuthenticated,
+      props: route => ({ id: Number(route.params.id) }),
       meta: {
         title: 'Fobbage - Play',
       },
