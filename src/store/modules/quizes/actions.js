@@ -37,11 +37,11 @@ export default {
         });
     });
   },
-  bluff: ({ commit }, { id, bluff }) => new Promise(
+  bluff: ({ state, commit }, { text }) => new Promise(
     (resolve, reject) => {
-      bluffsAPI.post({ question: id, text: bluff })
+      bluffsAPI.post({ question: state.activeQuestion.id, text })
         .then((response) => {
-          commit('BLUFF_SUCCESS', bluff);
+          commit('BLUFF_SUCCESS', text);
           resolve(response);
         })
         .catch((error) => {
@@ -58,6 +58,7 @@ export default {
     }
   },
   sendAnswer({ state }, { answer }) {
+    console.log(answer);
     if (state.websocket) {
       state.websocket.send(JSON.stringify({
         answer,

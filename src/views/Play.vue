@@ -13,7 +13,7 @@
             <Message :message="message"/>
           </li>
         </ul>
-        <Answer/>
+        <Bluff/>
       </div>
     </div>
     <div v-else>
@@ -26,7 +26,7 @@
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex';
-import Answer from '@/components/quizes/Answer.vue';
+import Bluff from '@/components/quizes/Bluff.vue';
 // import Guess from '@/components/quizes/Guess.vue';
 import Message from '@/components/quizes/Message.vue';
 import Quizlist from '@/components/quizes/Quizlist.vue';
@@ -36,30 +36,31 @@ export default {
   name: 'Play',
   components: {
     // Bluff, Guess
-    Quizlist, Message, Answer,
+    Quizlist, Message, Bluff,
   },
   props: {
     id: Number,
   },
   created () {
-    if (this.id){
+    this.$store.dispatch('refreshToken');
+    if (this.id) {
       this.$store.dispatch('joinQuiz', { id: this.id });
     }
   },
   computed: {
-    ...mapGetters(['activeQuiz', 'questionStatus', ]),
+    ...mapGetters(['activeQuiz', 'questionStatus']),
     ...mapState({
-        messages: state => state.quizes.messages,
-        activeQuestion: state => state.quizes.activeQuestion,
-      }),
+      messages: state => state.quizes.messages,
+      activeQuestion: state => state.quizes.activeQuestion,
+    }),
   },
   methods: {
-    ...mapActions(['getQuizList', 'joinQuiz', ]),
+    ...mapActions(['getQuizList', 'joinQuiz']),
     connectToWebSocket() {
-      const scheme = window.location.protocol == "https:" ? "wss" : "ws";
+      const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
       const uri = this.activeQuiz.websocket;
       this.$store.dispatch('connectToWebSocket', { scheme, uri });
-    }
+    },
   },
   watch: {
     activeQuiz: 'connectToWebSocket',

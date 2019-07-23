@@ -1,27 +1,43 @@
 <template>
-  <div class="hello">
-    <h1>
-      {{ activeQuiz.active_question.text }}
-    </h1>
-    <input value="" v-model="my_bluff">
-    <button class="button" v-on:click="bluff()">Bluff</button>
-  </div>
+  <!-- <section>
+        <b-field label="">
+            <b-input type="textarea"
+                placeholder="Fill in a witty bluff"
+                v-model="bluff">
+            </b-input>
+        </b-field>
+    <button class="button" v-on:click="bluff()">bluff</button>
+  </section> -->
+  <v-form @submit.prevent="bluff" id="bluff">
+  <v-text-field
+    v-model="form.bluff"
+    prepend-icon=""
+    name="bluff"
+    label="bluff"
+    type="text"></v-text-field>
+  <v-btn type="submit" color="primary" form="bluff">Bluff</v-btn>
+</v-form>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'Bluff',
-  data: () => ({
-    my_bluff: undefined,
-  }),
+  name: 'bluff',
+  data() {
+    return {
+      errors: [],
+      form: {
+        bluff: '',
+      },
+    };
+  },
   computed: {
     ...mapGetters(['activeQuiz']),
   },
   methods: {
     bluff() {
-      this.$store.dispatch('bluff', { id: this.$store.getters.activeQuiz.active_question.id, bluff: this.my_bluff });
+      this.$store.dispatch('bluff', { text: this.form.bluff });
     },
   },
 };

@@ -1,29 +1,27 @@
 <template>
-  <section>
-        <b-field label="">
-            <b-input type="textarea"
-                placeholder="Fill in a witty answer"
-                v-model="answer">
-            </b-input>
-        </b-field>
-    <button class="button" v-on:click="bluff()">Answer</button>
-  </section>
+  <div class="hello">
+    <h1>
+      {{ activeQuiz.active_question.text }}
+    </h1>
+    <input value="" v-model="my_bluff">
+    <button class="button" v-on:click="bluff()">Bluff</button>
+  </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
 
 export default {
-  name: 'Answer',
+  name: 'Bluff',
   data: () => ({
-    answer: undefined,
+    my_bluff: undefined,
   }),
   computed: {
     ...mapGetters(['activeQuiz']),
   },
   methods: {
     bluff() {
-      this.$store.dispatch('sendAnswer', this);
+      this.$store.dispatch('bluff', { id: this.$store.getters.activeQuiz.active_question.id, bluff: this.my_bluff });
     },
   },
 };
