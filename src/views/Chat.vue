@@ -40,7 +40,6 @@ export default {
     },
     onClose (event) {
       console.log('Connection closed.', event.data)
-
       // Try and Reconnect after five seconds
       // setTimeout(this.connectToWebSocket, 5000)
     },

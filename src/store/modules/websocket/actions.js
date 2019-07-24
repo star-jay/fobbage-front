@@ -1,4 +1,3 @@
-
 export default {
   connectToWebSocket: ({ commit, dispatch }, { scheme, uri }) => {
     const websocket = new WebSocket(`${scheme}://${uri}`);
@@ -16,9 +15,10 @@ export default {
     };
     commit('SOCKET_SET', { websocket });
   },
-  newMessage({ commit }, { event }) {
+  newMessage({ state, dispatch }, { event }) {
     const message = JSON.parse(event.data);
-    commit('SOCKET_MESSAGE', message);
+    state.messages.push(message);
+    // toodo: get quiz id from message and uery new active question
+    dispatch();
   },
-
 };

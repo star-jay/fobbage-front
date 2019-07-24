@@ -1,27 +1,39 @@
 <template>
-  <section>
-    <div v-if="activeQuiz">
-       <h1>
-        Quiz : {{ activeQuiz.title }}
-        </h1>
-      <div v-if="activeQuestion">
-        <h1>
-        Question : {{ activeQuestion.text }}
-        </h1>
-        <ul>
-          <li v-for="message in messages" v-bind:key="message.id">
-            <Message :message="message"/>
-          </li>
-        </ul>
-        <Bluff/>
-      </div>
-    </div>
-    <div v-else>
-      <h2>Select a quiz to play first!</h2>
-      <Quizlist/>
-    </div>
+  <div>
+  <NavigationBar/>
 
-  </section>
+  <v-container fluid fill-height ma-0 pa-0 >
+    <v-layout justify-center>
+      <div v-if="activeQuiz">
+        <h1>
+          Quiz : {{ activeQuiz.title }}
+          </h1>
+        <div v-if="activeQuestion && activeQuestion.text">
+          <h2>
+          {{ activeQuestion.text }}
+          </h2>
+          <ul>
+            <li v-for="message in messages" v-bind:key="message.id">
+              <Message :message="message"/>
+            </li>
+          </ul>
+          <Bluff/>
+        </div>
+        <div v-else>
+          <h2>
+            no active question
+          </h2>
+        </div>
+      </div>
+      <div v-else>
+        <h2>Select a quiz to play first!</h2>
+        <Quizlist/>
+      </div>
+    </v-layout>
+
+  </v-container>
+  </div>
+
 </template>
 
 <script>
@@ -30,18 +42,19 @@ import Bluff from '@/components/quizes/Bluff.vue';
 // import Guess from '@/components/quizes/Guess.vue';
 import Message from '@/components/quizes/Message.vue';
 import Quizlist from '@/components/quizes/Quizlist.vue';
+import NavigationBar from '@/components/NavigationBar.vue';
 
 
 export default {
   name: 'Play',
   components: {
     // Bluff, Guess
-    Quizlist, Message, Bluff,
+    Quizlist, Message, Bluff, NavigationBar,
   },
   props: {
     id: Number,
   },
-  created () {
+  created() {
     this.$store.dispatch('refreshToken');
     if (this.id) {
       this.$store.dispatch('joinQuiz', { id: this.id });

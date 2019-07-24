@@ -22,21 +22,23 @@ export default {
         });
     });
   },
-  joinQuiz: ({ commit }, { id }) => {
+  joinQuiz: ({ commit, dispatch }, { id }) => {
     commit('QUIZES_JOIN', { id });
-    return new Promise((resolve, reject) => {
-      activeQuestionsAPI.get(id)
-        .then((response) => {
-          const activeQuestion = response.data;
-          commit('ACTIVE_QUESTION_SUCCES', { activeQuestion });
-          resolve(response);
-        })
-        .catch((error) => {
-          commit('QUIZES_ERROR');
-          reject(error);
-        });
-    });
+    dispatch('newActiveQuestion', { id });
   },
+  newActiveQuestion: ({ commit }, { id }) => new Promise((resolve, reject) => {
+    // set active question to zero
+    activeQuestionsAPI.get(id)
+      .then((response) => {
+        const activeQuestion = response.data;
+        commit('ACTIVE_QUESTION_SUCCES', { activeQuestion });
+        resolve(response);
+      })
+      .catch((error) => {
+        commit('QUIZES_ERROR');
+        reject(error);
+      });
+  }),
   bluff: ({ state, commit }, { text }) => new Promise(
     (resolve, reject) => {
       bluffsAPI.post({ question: state.activeQuestion.id, text })
@@ -65,36 +67,15 @@ export default {
       }));
     }
   },
-  guess: ({ commit }, { id, guess }) => {
-    return new Promise((resolve, reject) => {
-      guessAPI.post({ question: id, answer: guess })
-        .then((response) => {
-          commit('GUESS_SUCCESS', guess);
-          resolve(response);
-        })
-        .catch((error) => {
-          commit('GUESS_ERROR');
-          reject(error);
-        });
-    });
-  },
-  connectToWebSocket: ({ commit }, { scheme, uri }) => {
-    // var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
-    const websocket = new WebSocket(`${scheme}://${uri}`);
-    websocket.onopen = (event) => {
-      commit('SOCKET_OPEN', { event });
-    };
-    websocket.onclose = (event) => {
-      commit('SOCKET_CLOSE', { event });
-    };
-    websocket.onmessage = (event) => {
-      commit('SOCKET_MESSAGE', { event });
-    };
-    websocket.onerror = (event) => {
-      commit('SOCKET_ERROR', { event });
-    };
-    commit('SOCKET_SET', { websocket });
-  },
-
-
+  guess: ({ commit }, { id, guess }) => new Promise((resolve, reject) => {
+    guessAPI.post({ question: id, answer: guess })
+      .then((response) => {
+        commit('GUESS_SUCCESS', guess);
+        resolve(response);
+      })
+      .catch((error) => {
+        commit('GUESS_ERROR');
+        reject(error);
+      });
+  }),
 };
