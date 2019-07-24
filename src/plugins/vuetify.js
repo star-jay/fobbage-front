@@ -1,19 +1,12 @@
-// import Vue from 'vue';
-// import Vuetify from 'vuetify/lib';
-// import 'vuetify/src/stylus/app.styl';
 
-// Vue.use(Vuetify, {
-//   iconfont: 'md',
-// });
+// import '@mdi/font/css/materialdesignicons.css' // Ensure you are using css-loader
+import Vue from 'vue';
+import Vuetify from 'vuetify/lib';
 
-// v2.0
+Vue.use(Vuetify);
 
-// import Vue from 'vue'
-// import Vuetify from 'vuetify'
-// import 'vuetify/dist/vuetify.min.css'
-
-// Vue.use(Vuetify)
-
-// new Vue({
-//   vuetify: new Vuetify(opts)
-// }).$mount('#app')
+export default new Vuetify({
+  icons: {
+    // iconfont: 'mdi', // default - only for display purposes
+  },
+});

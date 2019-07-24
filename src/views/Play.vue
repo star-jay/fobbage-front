@@ -1,7 +1,4 @@
 <template>
-  <div>
-  <NavigationBar/>
-
   <v-container fluid fill-height ma-0 pa-0 >
     <v-layout justify-center>
       <div v-if="activeQuiz">
@@ -26,14 +23,11 @@
         </div>
       </div>
       <div v-else>
-        <h2>Select a quiz to play first!</h2>
-        <Quizlist/>
+        <h2>no active quiz</h2>
       </div>
     </v-layout>
 
   </v-container>
-  </div>
-
 </template>
 
 <script>
@@ -41,15 +35,12 @@ import { mapGetters, mapActions, mapState } from 'vuex';
 import Bluff from '@/components/quizes/Bluff.vue';
 // import Guess from '@/components/quizes/Guess.vue';
 import Message from '@/components/quizes/Message.vue';
-import Quizlist from '@/components/quizes/Quizlist.vue';
-import NavigationBar from '@/components/NavigationBar.vue';
 
 
 export default {
   name: 'Play',
   components: {
-    // Bluff, Guess
-    Quizlist, Message, Bluff, NavigationBar,
+    Message, Bluff,
   },
   props: {
     id: Number,

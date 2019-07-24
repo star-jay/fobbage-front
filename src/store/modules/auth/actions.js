@@ -1,4 +1,6 @@
-import { authAPI } from '@/services/api';
+import jwtDecode from 'jwt-decode';
+
+import authAPI from '@/services/api/auth';
 
 import {
   AUTH_REQUEST,
@@ -9,7 +11,6 @@ import {
   AUTH_REGISTERED,
 } from '@/store/mutation-types';
 
-import jwtDecode from 'jwt-decode';
 
 export default {
   login({ commit }, credentials) {

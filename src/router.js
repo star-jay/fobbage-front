@@ -2,6 +2,8 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import store from '@/store';
 import Play from '@/views/Play.vue';
+import Home from '@/views/Home.vue';
+import Quizlist from '@/views/Quizlist.vue';
 
 
 Vue.use(Router);
@@ -11,10 +13,6 @@ const ifNotAuthenticated = (to, from, next) => {
     next();
     return;
   }
-  next('/play');
-};
-
-const redirect = (to, from, next) => {
   next('/play');
 };
 
@@ -30,25 +28,27 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    // play
+    // Home
     {
       path: '/',
-      name: 'home',
-      beforeEnter: redirect,
+      component: Home,
       meta: {
-        title: 'Fobbage - Home',
+        title: 'Fobbage',
       },
-    },
-    // home redirect
-    {
-      path: '/play/:id(\\d+)?',
-      name: 'play',
-      component: Play,
-      beforeEnter: ifAuthenticated,
-      props: route => ({ id: Number(route.params.id) }),
-      meta: {
-        title: 'Fobbage - Play',
-      },
+      children: [
+        // pick a quiz
+        {
+          path: '',
+          component: Quizlist,
+          beforeEnter: ifAuthenticated,
+        },
+        {
+          path: '/:id(\\d+)?',
+          component: Play,
+          beforeEnter: ifAuthenticated,
+          props: route => ({ id: Number(route.params.id) }),
+        },
+      ],
     },
     // login  pages
     {

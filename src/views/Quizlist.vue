@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <div class="list-item-left" v-for="quiz in quizlist" :key="quiz.name">
-      <router-link :to="{name: 'play', params: { id: quiz.id }}">
+      <router-link :to="'/'+quiz.id">
         <a class="list-item" @click="joinQuiz(quiz.id)">
           {{ quiz.title }}
         </a>
