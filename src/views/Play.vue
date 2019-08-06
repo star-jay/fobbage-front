@@ -1,20 +1,17 @@
 <template>
-  <v-container fluid fill-height ma-0 pa-0 >
-    <v-layout justify-center>
+<!-- class="xs10 offset-xs1" -->
+    <v-layout>
       <div v-if="activeQuiz">
         <h1>
           Quiz : {{ activeQuiz.title }}
-          </h1>
+        </h1>
         <div v-if="activeQuestion && activeQuestion.text">
           <h2>
           {{ activeQuestion.text }}
           </h2>
-          <ul>
-            <li v-for="message in messages" v-bind:key="message.id">
-              <Message :message="message"/>
-            </li>
-          </ul>
-          <Bluff/>
+
+          <Bluff v-if="activeQuestion.status===0"/>
+          <Guess v-else-if="activeQuestion.status===1"/>
         </div>
         <div v-else>
           <h2>
@@ -26,68 +23,51 @@
         <h2>no active quiz</h2>
       </div>
     </v-layout>
-
-  </v-container>
 </template>
 
 <script>
-import { mapGetters, mapActions, mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import Bluff from '@/components/quizes/Bluff.vue';
-// import Guess from '@/components/quizes/Guess.vue';
-import Message from '@/components/quizes/Message.vue';
+import Guess from '@/components/quizes/Guess.vue';
 
 
 export default {
   name: 'Play',
   components: {
-    Message, Bluff,
+    Bluff, Guess,
   },
   props: {
     id: Number,
   },
   created() {
-    this.$store.dispatch('refreshToken');
-    if (this.id) {
-      this.$store.dispatch('joinQuiz', { id: this.id });
-    }
+    this.refresh();
   },
   computed: {
     ...mapGetters(['activeQuiz', 'questionStatus']),
     ...mapState({
       messages: state => state.quizes.messages,
       activeQuestion: state => state.quizes.activeQuestion,
+      activeQuizId: state => state.quizes.activeQuizId,
     }),
   },
   methods: {
-    ...mapActions(['getQuizList', 'joinQuiz']),
+    refresh() {
+      this.$store.dispatch('refreshToken');
+      if (this.id) {
+        this.$store.dispatch('joinQuiz', { id: this.id });
+      }
+    },
     connectToWebSocket() {
-      const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
-      const uri = this.activeQuiz.websocket;
-      this.$store.dispatch('connectToWebSocket', { scheme, uri });
+      console.log(this.activeQuiz);
+      if (this.activeQuizId) {
+        const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const uri = this.activeQuiz.websocket;
+        this.$store.dispatch('connectToWebSocket', { scheme, uri });
+      }
     },
   },
   watch: {
     activeQuiz: 'connectToWebSocket',
   },
-
-
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

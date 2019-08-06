@@ -78,4 +78,13 @@ export default {
         reject(error);
       });
   }),
+  newMessage({ state, dispatch }, { message }) {
+    // toodo: get quiz id from message and query new active question
+    console.log('quiz_id' in message);
+    if ('quiz_id' in message) {
+      setTimeout(() => {
+        dispatch('newActiveQuestion', { id: state.activeQuizId });
+      }, 200);
+    }
+  },
 };

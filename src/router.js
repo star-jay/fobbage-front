@@ -13,7 +13,7 @@ const ifNotAuthenticated = (to, from, next) => {
     next();
     return;
   }
-  next('/play');
+  next('/');
 };
 
 const ifAuthenticated = (to, from, next) => {

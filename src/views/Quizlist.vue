@@ -1,19 +1,23 @@
 <template>
-  <div class="list">
-    <div class="list-item-left" v-for="quiz in quizlist" :key="quiz.name">
-      <router-link :to="'/'+quiz.id">
-        <a class="list-item" @click="joinQuiz(quiz.id)">
-          {{ quiz.title }}
-        </a>
-      </router-link>
-    </div>
-  </div>
+  <v-list flat>
+    <v-subheader>Quizes</v-subheader>
+    <v-list-item-group v-model="quizlist" color="primary">
+      <v-list-item
+        v-for="quiz in quizlist"
+        :key="quiz.name"
+        :to="'/'+quiz.id"
+      >
+        <v-list-item-content>
+          <v-list-item-title v-text="quiz.title">
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list-item-group>
+  </v-list>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-// import router from '@/router';
-
 
 export default {
   name: 'Quizlist',

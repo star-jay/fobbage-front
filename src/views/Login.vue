@@ -2,12 +2,6 @@
 <v-container fluid fill-height>
     <v-layout justify-center>
       <v-flex xs12 sm8 md4>
-        <!-- <v-img
-          :src="require('../assets/images/insilc_logo.png')"
-          class="my-3"
-          contain
-          height="60">
-        </v-img> -->
         <v-card class="elevation-12">
           <v-toolbar dark color="primary" dense flat>
             <v-toolbar-title>Login</v-toolbar-title>

@@ -1,33 +1,51 @@
 <template>
-  <div class="hello">
-    <h1 class="subtitle">
-      {{ activeQuiz.active_question.text }}
-    </h1>
-    <!-- <el-form> -->
-    <div v-for="answer in activeQuiz.active_question.answers" :key="answer.id">
-      <!-- <span>{{ answer.text }}</span> -->
-        <button class="button" v-on:click="guess(answer.id)">
-          {{ answer.order }}
-        </button>
-    </div>
-    <!-- </el-form> -->
-  </div>
+  <v-form @submit.prevent="guess" id="guess">
+    <v-list flat>
+      <v-list-item-group v-model="number" color="primary">
+        <v-list-item
+          v-for="answer in activeQuestion.answers"
+          :key="answer.id"
+        >
+          <template v-slot:default="{ active }">
+            <v-list-item-action>
+              <v-checkbox v-model="active"></v-checkbox>
+            </v-list-item-action>
+            <v-list-item-content>
+            <v-list-item-title v-text="answer.text">
+              </v-list-item-title>
+            </v-list-item-content>
+          </template>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
+    <v-btn type="submit" color="primary" form="guess">Guess</v-btn>
+  </v-form>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name: 'Guess',
+  data() {
+    return {
+      errors: [],
+      number: undefined,
+      order: undefined,
+    };
+  },
   computed: {
     ...mapGetters(['activeQuiz']),
+    ...mapState({
+      activeQuestion: state => state.quizes.activeQuestion,
+    }),
   },
   methods: {
     guess(number) {
       this.$store.dispatch(
         'guess',
         {
-          id: this.$store.getters.activeQuiz.active_question.id,
+          id: this.activeQuestion.id,
           guess: number,
         },
       );
@@ -35,21 +53,3 @@ export default {
   },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

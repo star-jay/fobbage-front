@@ -15,7 +15,8 @@ export default {
     state.error = 'There was a problem!';
   },
   [types.QUIZES_JOIN]: (state, { id }) => {
-    state.active_quiz = id;
+    console.log('QUIZES_JOIN');
+    state.activeQuizId = id;
     state.bluff = '';
   },
   [types.BLUFF_REQUEST]: (state) => {
@@ -42,6 +43,7 @@ export default {
   },
   [types.ACTIVE_QUESTION_SUCCES]: (state, { activeQuestion }) => {
     state.activeQuestion = activeQuestion;
+    console.log(activeQuestion.text);
     state.error = 'There was a problem!';
   },
 };

@@ -1,16 +1,19 @@
 <template>
-  <v-container fluid fill-height ma-0 pa-0 >
-    <v-layout justify-center>
-      <router-view/>
-
-    </v-layout>
-  </v-container>
+  <div>
+    <NavigationBar/>
+    <v-container>
+        <router-view/>
+    </v-container>
+  </div>
 </template>
 
 <script>
+import NavigationBar from '@/components/NavigationBar.vue';
+
 export default {
   name: 'Play',
   components: {
+    NavigationBar,
   },
 };
 </script>

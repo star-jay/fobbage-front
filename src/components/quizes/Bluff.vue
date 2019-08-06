@@ -1,15 +1,13 @@
 <template>
-  <v-container class="xs10 offset-xs1">
-    <v-form @submit.prevent="bluff" id="bluff">
-      <v-textarea
-        v-model="form.bluff"
-        name="bluff"
-        label="bluff"
-        solo
-        auto-grow/>
-      <v-btn type="submit" color="primary" form="bluff">Bluff</v-btn>
-    </v-form>
-  </v-container>
+  <v-form @submit.prevent="bluff" id="bluff">
+    <v-textarea
+      v-model="form.bluff"
+      name="bluff"
+      label="bluff"
+      solo
+      auto-grow/>
+    <v-btn type="submit" color="primary" form="bluff">Bluff</v-btn>
+  </v-form>
 </template>
 
 <script>
