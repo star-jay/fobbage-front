@@ -15,7 +15,8 @@ export default {
     state.error = 'There was a problem!';
   },
   [types.QUIZES_JOIN]: (state, { id }) => {
-    state.active_quiz = id;
+    console.log('QUIZES_JOIN');
+    state.activeQuizId = id;
     state.bluff = '';
   },
   [types.BLUFF_REQUEST]: (state) => {
@@ -32,12 +33,17 @@ export default {
   [types.GUESS_REQUEST]: (state) => {
     state.loading = true;
   },
-  [types.GUESS_SUCCESS]: (state, guess) => {
+  [types.GUESS_SUCCESS]: (state, { guess }) => {
     state.guess = guess;
     state.loading = false;
   },
   [types.GUESS_ERROR]: (state) => {
     state.loading = false;
+    state.error = 'There was a problem!';
+  },
+  [types.ACTIVE_QUESTION_SUCCES]: (state, { activeQuestion }) => {
+    state.activeQuestion = activeQuestion;
+    console.log(activeQuestion.text);
     state.error = 'There was a problem!';
   },
 };

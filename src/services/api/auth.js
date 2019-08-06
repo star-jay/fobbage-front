@@ -1,10 +1,21 @@
-import axios from '@/utils/axiosClient';
+import axios from 'axios';
 
+const options = {};
 const tokenKey = 'fobbage-user';
+const prevToken = localStorage.getItem(tokenKey);
+if (prevToken) {
+  options.Authorization = `JWT ${prevToken}`;
+}
+
+const axiosClient = axios.create({
+  baseURL: process.env.VUE_APP_FOBBAGESAPI_BACKEND_URL || 'https://fobbage.herokuapp.com/',
+  ...options,
+});
+
 
 export default {
   login: credentials => new Promise((resolve, reject) => {
-    axios.post('api/token/', credentials)
+    axiosClient.post('api/token/', credentials)
       .then((resp) => {
         const { token } = resp.data;
         localStorage.setItem(tokenKey, token);
@@ -20,7 +31,7 @@ export default {
     localStorage.removeItem(tokenKey);
   },
   refresh: token => new Promise((resolve, reject) => {
-    axios.post('api/refreshtoken/', { token }, {
+    axiosClient.post('api/refreshtoken/', { token }, {
       refresh: true,
     })
       .then((resp) => {
@@ -34,7 +45,7 @@ export default {
       });
   }),
   register: credentials => new Promise((resolve, reject) => {
-    axios.post('accounts/register', credentials)
+    axiosClient.post('accounts/register', credentials)
       .then((resp) => {
         resolve(resp);
       })

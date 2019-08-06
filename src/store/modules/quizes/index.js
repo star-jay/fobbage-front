@@ -6,11 +6,11 @@ export default {
   state: {
     loading: false,
     quizes: [],
-    messages: [],
-    active_quiz: null,
+    activeQuizId: null,
     error: '',
     bluff: undefined,
     guess: undefined,
+    activeQuestion: undefined,
   },
   mutations,
   getters,
