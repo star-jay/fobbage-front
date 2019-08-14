@@ -1,7 +1,7 @@
 <template>
   <v-form @submit.prevent="guess" id="guess">
     <v-list flat>
-      <v-list-item-group v-model="number" color="primary">
+      <v-list-item-group v-model="answer" color="primary">
         <v-list-item
           v-for="answer in activeQuestion.answers"
           :key="answer.id"
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       errors: [],
-      number: undefined,
+      answer: undefined,
       order: undefined,
     };
   },
@@ -41,12 +41,12 @@ export default {
     }),
   },
   methods: {
-    guess(number) {
+    guess() {
       this.$store.dispatch(
         'guess',
         {
           id: this.activeQuestion.id,
-          guess: number,
+          guess: this.activeQuestion.answers[this.answer].id,
         },
       );
     },
