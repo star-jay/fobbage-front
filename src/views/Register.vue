@@ -50,7 +50,6 @@ export default {
     register() {
       this.$store.dispatch('register', this.form)
         .then(() => {
-          console.log('registered');
           this.$router.push('/');
         })
         .catch((error) => {

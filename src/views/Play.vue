@@ -9,9 +9,9 @@
           <h2>
           {{ activeQuestion.text }}
           </h2>
-
-          <Bluff v-if="activeQuestion.status===0"/>
-          <Guess v-else-if="activeQuestion.status===1"/>
+          <Guess v-if="activeQuestion.status===1"/>
+          <Bluff v-else-if="activeQuestion.status===0"/>
+          <p v-else>bug</p>
         </div>
         <div v-else>
           <h2>
@@ -58,7 +58,6 @@ export default {
       }
     },
     connectToWebSocket() {
-      console.log(this.activeQuiz);
       if (this.activeQuizId) {
         const scheme = window.location.protocol === 'https:' ? 'wss' : 'ws';
         const uri = this.activeQuiz.websocket;
