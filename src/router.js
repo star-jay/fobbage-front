@@ -60,6 +60,15 @@ export default new Router({
         title: 'Fobbage - Login',
       },
     },
+    // login  pages
+    {
+      path: '/logout',
+      name: 'logout',
+      component: () => import(/* webpackChunkName: "login" */ './views/Logout.vue'),
+      meta: {
+        title: 'Fobbage - Logout',
+      },
+    },
     // register  pages
     {
       path: '/register',
