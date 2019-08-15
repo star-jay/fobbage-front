@@ -1,25 +1,28 @@
 <template>
-  <v-form @submit.prevent="guess" id="guess">
-    <v-list flat>
-      <v-list-item-group v-model="number" color="primary">
-        <v-list-item
-          v-for="answer in activeQuestion.answers"
-          :key="answer.id"
-        >
-          <template v-slot:default="{ active }">
-            <v-list-item-action>
-              <v-checkbox v-model="active"></v-checkbox>
-            </v-list-item-action>
-            <v-list-item-content>
-            <v-list-item-title v-text="answer.text">
-              </v-list-item-title>
-            </v-list-item-content>
-          </template>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-    <v-btn type="submit" color="primary" form="guess">Guess</v-btn>
-  </v-form>
+  <div>
+    <p v-if="activeQuestion.have_guessed">Your guess was submitted</p>
+    <v-form v-else @submit.prevent="guess" id="guess">
+      <v-list flat>
+        <v-list-item-group v-model="answer" color="primary">
+          <v-list-item
+            v-for="answer in activeQuestion.answers"
+            :key="answer.id"
+          >
+            <template v-slot:default="{ active }">
+              <v-list-item-action>
+                <v-checkbox v-model="active"></v-checkbox>
+              </v-list-item-action>
+              <v-list-item-content>
+              <v-list-item-title v-text="answer.text">
+                </v-list-item-title>
+              </v-list-item-content>
+            </template>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+      <v-btn type="submit" color="primary" form="guess">Guess</v-btn>
+    </v-form>
+  </div>
 </template>
 
 <script>
@@ -30,7 +33,7 @@ export default {
   data() {
     return {
       errors: [],
-      number: undefined,
+      answer: undefined,
       order: undefined,
     };
   },
@@ -41,12 +44,12 @@ export default {
     }),
   },
   methods: {
-    guess(number) {
+    guess() {
       this.$store.dispatch(
         'guess',
         {
           id: this.activeQuestion.id,
-          guess: number,
+          guess: this.activeQuestion.answers[this.answer].id,
         },
       );
     },

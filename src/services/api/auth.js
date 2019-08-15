@@ -45,7 +45,7 @@ export default {
       });
   }),
   register: credentials => new Promise((resolve, reject) => {
-    axiosClient.post('accounts/register', credentials)
+    axiosClient.post('api/register', credentials)
       .then((resp) => {
         resolve(resp);
       })

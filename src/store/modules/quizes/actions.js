@@ -26,9 +26,9 @@ export default {
     commit('QUIZES_JOIN', { id });
     dispatch('newActiveQuestion', { id });
   },
-  newActiveQuestion: ({ commit }, { id }) => new Promise((resolve, reject) => {
+  newActiveQuestion: ({ state, commit }) => new Promise((resolve, reject) => {
     // set active question to zero
-    activeQuestionsAPI.get(id)
+    activeQuestionsAPI.get(state.activeQuizId)
       .then((response) => {
         const activeQuestion = response.data;
         commit('ACTIVE_QUESTION_SUCCES', { activeQuestion });
@@ -60,17 +60,17 @@ export default {
     }
   },
   sendAnswer({ state }, { answer }) {
-    console.log(answer);
     if (state.websocket) {
       state.websocket.send(JSON.stringify({
         answer,
       }));
     }
   },
-  guess: ({ commit }, { id, guess }) => new Promise((resolve, reject) => {
+  guess: ({ commit, dispatch }, { id, guess }) => new Promise((resolve, reject) => {
     guessAPI.post({ question: id, answer: guess })
       .then((response) => {
         commit('GUESS_SUCCESS', guess);
+        dispatch('newActiveQuestion');
         resolve(response);
       })
       .catch((error) => {
@@ -78,12 +78,11 @@ export default {
         reject(error);
       });
   }),
-  newMessage({ state, dispatch }, { message }) {
+  newMessage({ dispatch }, { message }) {
     // toodo: get quiz id from message and query new active question
-    console.log('quiz_id' in message);
     if ('quiz_id' in message) {
       setTimeout(() => {
-        dispatch('newActiveQuestion', { id: state.activeQuizId });
+        dispatch('newActiveQuestion');
       }, 200);
     }
   },
