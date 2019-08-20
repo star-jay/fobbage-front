@@ -5,7 +5,7 @@
   >
     <v-app-bar-nav-icon></v-app-bar-nav-icon>
     <!-- <router-link to="/"> -->
-      <v-toolbar-title light>Quiffy</v-toolbar-title>
+      <v-toolbar-title light>Fobbage</v-toolbar-title>
     <!-- </router-link> -->
     <v-spacer></v-spacer>
     <v-btn icon>

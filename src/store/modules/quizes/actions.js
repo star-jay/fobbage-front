@@ -39,11 +39,12 @@ export default {
         reject(error);
       });
   }),
-  bluff: ({ state, commit }, { text }) => new Promise(
+  bluff: ({ state, commit, dispatch }, { text }) => new Promise(
     (resolve, reject) => {
       bluffsAPI.post({ question: state.activeQuestion.id, text })
         .then((response) => {
           commit('BLUFF_SUCCESS', text);
+          dispatch('newActiveQuestion');
           resolve(response);
         })
         .catch((error) => {

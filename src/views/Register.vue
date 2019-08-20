@@ -106,11 +106,11 @@ export default {
       submitted: false,
       form: {
         username: '',
-        email: 'test@fobbage.com ',
-        first_name: 'test',
-        last_name: 'test',
-        password: 'test1234',
-        password2: 'test1234',
+        email: '',
+        first_name: '',
+        last_name: '',
+        password: '',
+        password2: '',
       },
       rules: {
         username: [
@@ -154,9 +154,9 @@ export default {
         this.$store.dispatch('register', this.form)
           .then(() => {
             this.submitted = true;
-            setTimeout(3000, ()=>{
+            setTimeout(()=>{
               router.push({ name: 'login' });
-            })
+            }, 3000)
           })
           .catch((error) => {
             this.errors = error.response.data;
