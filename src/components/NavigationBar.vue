@@ -1,27 +1,45 @@
 <template>
   <v-app-bar
-    color="amber darken-2"
     dark
+    app
+    class="primary"
   >
-    <v-app-bar-nav-icon></v-app-bar-nav-icon>
-    <!-- <router-link to="/"> -->
-      <v-toolbar-title light>Fobbage</v-toolbar-title>
-    <!-- </router-link> -->
+    <v-toolbar-title >Fobbage</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-btn icon>
-      <v-icon>mdi-heart</v-icon>
-    </v-btn>
+
+     <v-menu
+      transition="slide-y-transition"
+      bottom
+      offset-y
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          dark
+          icon
+          v-on="on"
+        >
+          <v-icon>person</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          @click="logout"
+        >
+        <v-list-item-title>Logout/Login</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
 
   </v-app-bar>
 </template>
 
-
 <script>
+
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'NavigationBar',
-  props: {
-    msg: String,
-  },
   data() {
     return {
       menu: {
@@ -45,6 +63,17 @@ export default {
         ],
       },
     };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch('logout')
+        .then(() => {
+          this.$router.push({ name: 'login' });
+        });
+    },
+  },
+  props: {
+    title: String,
   },
 };
 </script>

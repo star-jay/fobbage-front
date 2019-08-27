@@ -11,6 +11,8 @@
           </h2>
           <Guess v-if="activeQuestion.status===1"/>
           <Bluff v-else-if="activeQuestion.status===0"/>
+          <p v-else-if="activeQuestion.status===2">
+            No action required.
           <p v-else>bug</p>
         </div>
         <div v-else>
