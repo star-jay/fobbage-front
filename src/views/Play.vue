@@ -9,11 +9,12 @@
           <h2>
           {{ activeQuestion.text }}
           </h2>
-          <Guess v-if="activeQuestion.status===1"/>
-          <Bluff v-else-if="activeQuestion.status===0"/>
-          <p v-else-if="activeQuestion.status===2">
+
+          <Guess v-if="activeQuestion.status===1 && activeQuestion.round_modus===1"/>
+          <Bluff v-else-if="activeQuestion.status===0 && activeQuestion.round_modus===0"/>
+          <p v-else>
             No action required.
-          <p v-else>bug</p>
+          </p>
         </div>
         <div v-else>
           <h2>
